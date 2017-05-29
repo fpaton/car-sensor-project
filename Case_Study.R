@@ -80,13 +80,15 @@ summary(pca_object)
 
 source_Vehicle_Id <- grouped_by_car$source_Vehicle_Id
 model <- grouped_by_car$source_Vehicle_VinDetails_Model
-cluster <- grouped_by_car$cluster %>% as.factor()
 
 # clustering
-carCluster <- kmeans(grouped_by_car[,4:10], 4, nstart=20)
+                            
+carCluster <- kmeans(scale(grouped_by_car[,4:10]), 4, nstart=20)
 carCluster
 cluster_viz(carCluster)
 grouped_by_car$cluster <- carCluster$cluster
+
+                            cluster <- grouped_by_car$cluster %>% as.factor()
 
 # vis for clustering and PCA
 library(ggbiplot)
